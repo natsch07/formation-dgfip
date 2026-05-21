@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const GEMINI_KEY = "AIzaSyD8ozzwiZgEueHNGaKtAD925IDIttsm094"; // 
+const GEMINI_KEY = "AIzaSyDmWfB8lmbl86ZPSy-4JK9lkP5r8t8oEfU"; // ← Remplacez ici
 
 const MODULES = [
   {

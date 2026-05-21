@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const GEMINI_KEY = "AIzaSyD8ozzwiZgEueHNGaKtAD925IDIttsm094"; // 
+
 const MODULES = [
   {
     id:"filieres", title:"Filières DGFiP", sub:"Fiscale & Gestion Publique", icon:"🏛️",
@@ -100,7 +102,7 @@ const MODULES = [
 ];
 
 const ORAL_CATS = [
-  { cat:"🎯 A — LE CADRE", color:"bg-blue-100 border-blue-300 text-blue-800", tips:[
+  { cat:"🎯 A — LE CADRE", tips:[
     "Respecter les 5 minutes imparties. Idéal : 4'45 pour garder une marge.",
     "Avoir un plan organisé et structuré — éviter le plan chronologique.",
     "Annoncer clairement (voire lourdement) le plan dans l'introduction.",
@@ -108,14 +110,14 @@ const ORAL_CATS = [
     "Mettre en évidence des qualités : rigueur, autonomie, sens du collectif, relationnel...",
     "Valoriser ses compétences via des expériences pertinentes (pas toutes !)."
   ]},
-  { cat:"👤 B — PERSONNELLE", color:"bg-purple-100 border-purple-300 text-purple-800", tips:[
+  { cat:"👤 B — PERSONNELLE", tips:[
     "Marquer le jury par votre différence : expérience unique, anecdote marquante.",
     "Exposer ses motivations professionnelles précisément — éviter les généralités.",
     "Avoir un point de vue argumenté. Ne pas être lisse et convenu.",
     "Montrer de la hauteur de vue : tirer des enseignements de ses réussites et échecs.",
     "Utiliser des mots précis. Éviter les phrases toutes faites."
   ]},
-  { cat:"🔥 C — VIVANTE", color:"bg-orange-100 border-orange-300 text-orange-800", tips:[
+  { cat:"🔥 C — VIVANTE", tips:[
     "Écrire d'abord la présentation entière, puis ne retenir que les grandes idées.",
     "Utiliser des flash-back (raison d'éviter le plan chronologique).",
     "Illustrer avec des exemples concrets, anecdotes et métaphores.",
@@ -190,6 +192,7 @@ export default function App() {
     }
   };
 
+  // ── GEMINI API ──
   const sendChat = async () => {
     if(!chatIn.trim() || chatLoad) return;
     const msg = chatIn.trim();
@@ -197,17 +200,23 @@ export default function App() {
     setChat(prev=>[...prev, {role:'user', txt:msg}]);
     setChatLoad(true);
     try {
-      const sys = `Tu es un assistant expert en préparation aux concours et oraux de la DGFiP (Direction Générale des Finances Publiques). Tu connais parfaitement : les filières fiscale et gestion publique, les services (SIP, SIE, PCE, BCR, BDV, trésoreries), le contrôle fiscal, la sphère foncière, les directions nationales (DNEF, DVNI, DGE, ENFIP), le NRP (Nouveau Réseau de Proximité), et les conseils pour l'oral. Réponds de manière claire, concise et pédagogique en français. Utilise des emojis pour rendre ta réponse plus vivante.`;
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:600, system:sys, messages:[{role:'user',content:msg}]})
-      });
+      const prompt = `Tu es un assistant expert en préparation aux concours et oraux de la DGFiP (Direction Générale des Finances Publiques). Tu connais parfaitement : les filières fiscale et gestion publique, les services (SIP, SIE, PCE, BCR, BDV, trésoreries), le contrôle fiscal, la sphère foncière, les directions nationales (DNEF, DVNI, DGE, ENFIP), le NRP (Nouveau Réseau de Proximité), et les conseils pour l'oral. Réponds de manière claire, concise et pédagogique en français. Utilise des emojis pour rendre ta réponse plus vivante.\n\nQuestion : ${msg}`;
+
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }]
+          })
+        }
+      );
       const data = await res.json();
-      const txt = data.content?.[0]?.text || "Désolé, je n'ai pas pu répondre.";
+      const txt = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu répondre.";
       setChat(prev=>[...prev, {role:'ai', txt}]);
-    } catch {
-      setChat(prev=>[...prev, {role:'ai', txt:"⚠️ Erreur de connexion. Veuillez réessayer."}]);
+    } catch(e) {
+      setChat(prev=>[...prev, {role:'ai', txt:"⚠️ Erreur de connexion. Vérifiez votre clé API Gemini."}]);
     }
     setChatLoad(false);
   };
@@ -229,7 +238,6 @@ export default function App() {
           ))}
         </div>
       </div>
-
       <div style={{padding:'32px 24px',maxWidth:960,margin:'0 auto'}}>
         <div style={{textAlign:'center',marginBottom:32}}>
           <h1 style={{color:'white',fontSize:28,fontWeight:800,margin:'0 0 8px'}}>Préparez votre concours DGFiP 🚀</h1>
@@ -238,13 +246,12 @@ export default function App() {
             <span style={{color:'white',fontWeight:700,fontSize:15}}>📊 Progression : {doneCount}/{totalLessons} leçons lues · {Object.keys(doneQ).length}/{MODULES.length} modules complétés</span>
           </div>
         </div>
-
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:16}}>
           {MODULES.map(m=>(
             <div key={m.id} style={{background:'white',borderRadius:16,overflow:'hidden',boxShadow:'0 4px 20px rgba(0,0,0,0.15)',cursor:'pointer',transition:'transform 0.2s'}}
               onMouseEnter={e=>e.currentTarget.style.transform='translateY(-4px)'}
               onMouseLeave={e=>e.currentTarget.style.transform='translateY(0)'}>
-              <div style={{background:`linear-gradient(135deg,var(--g1),var(--g2))`,backgroundImage:`linear-gradient(135deg,${m.grad.replace('from-','').replace('to-',',')})`,padding:'20px 20px 16px'}}>
+              <div style={{backgroundImage:`linear-gradient(135deg,${m.grad.includes('blue')?'#3b82f6,#1d4ed8':m.grad.includes('orange')?'#f97316,#dc2626':m.grad.includes('green')?'#10b981,#065f46':m.grad.includes('purple')?'#8b5cf6,#6d28d9':m.grad.includes('rose')?'#f43f5e,#db2777':'#14b8a6,#0e7490'})`,padding:'20px 20px 16px'}}>
                 <div style={{fontSize:32,marginBottom:8}}>{m.icon}</div>
                 <div style={{color:'white',fontWeight:800,fontSize:17}}>{m.title}</div>
                 <div style={{color:'rgba(255,255,255,0.85)',fontSize:13,marginTop:2}}>{m.sub}</div>
@@ -256,7 +263,7 @@ export default function App() {
                 </div>
                 <div style={{display:'flex',gap:8}}>
                   <button onClick={()=>{setMod(m);setPage('module');setLessonOpen(null)}}
-                    style={{flex:1,background:`linear-gradient(135deg,${m.grad.includes('blue')?'#3b82f6,#1d4ed8':m.grad.includes('orange')?'#f97316,#dc2626':m.grad.includes('green')?'#10b981,#065f46':m.grad.includes('purple')?'#8b5cf6,#6d28d9':m.grad.includes('rose')?'#f43f5e,#db2777':'#14b8a6,#0e7490'})`,color:'white',border:'none',padding:'8px 0',borderRadius:8,cursor:'pointer',fontWeight:700,fontSize:13}}>
+                    style={{flex:1,backgroundImage:`linear-gradient(135deg,${m.grad.includes('blue')?'#3b82f6,#1d4ed8':m.grad.includes('orange')?'#f97316,#dc2626':m.grad.includes('green')?'#10b981,#065f46':m.grad.includes('purple')?'#8b5cf6,#6d28d9':m.grad.includes('rose')?'#f43f5e,#db2777':'#14b8a6,#0e7490'})`,color:'white',border:'none',padding:'8px 0',borderRadius:8,cursor:'pointer',fontWeight:700,fontSize:13}}>
                     📖 Cours
                   </button>
                   <button onClick={()=>startQuiz(m)}
@@ -276,7 +283,7 @@ export default function App() {
   if(page==='module' && mod) return (
     <div style={{minHeight:'100vh',background:'#f8fafc',fontFamily:'system-ui,sans-serif'}}>
       <div style={{backgroundImage:`linear-gradient(135deg,${mod.grad.includes('blue')?'#3b82f6,#1d4ed8':mod.grad.includes('orange')?'#f97316,#dc2626':mod.grad.includes('green')?'#10b981,#065f46':mod.grad.includes('purple')?'#8b5cf6,#6d28d9':mod.grad.includes('rose')?'#f43f5e,#db2777':'#14b8a6,#0e7490'})`,padding:'24px',display:'flex',alignItems:'center',gap:16}}>
-        <button onClick={()=>setPage('home')} style={{background:'rgba(255,255,255,0.2)',border:'none',color:'white',width:36,height:36,borderRadius:'50%',cursor:'pointer',fontSize:18,display:'flex',alignItems:'center',justifyContent:'center'}}>←</button>
+        <button onClick={()=>setPage('home')} style={{background:'rgba(255,255,255,0.2)',border:'none',color:'white',width:36,height:36,borderRadius:'50%',cursor:'pointer',fontSize:18}}>←</button>
         <div>
           <div style={{color:'white',fontWeight:800,fontSize:22}}>{mod.icon} {mod.title}</div>
           <div style={{color:'rgba(255,255,255,0.8)',fontSize:13}}>{mod.sub}</div>
@@ -342,7 +349,6 @@ export default function App() {
         </div>
       );
     }
-
     const q = mod.quiz[qz.cur];
     const colors = ['#3b82f6','#10b981','#f97316','#8b5cf6'];
     return (
@@ -410,7 +416,6 @@ export default function App() {
             </button>
           ))}
         </div>
-
         {oralTab==='tips' && ORAL_CATS.map((cat,ci)=>(
           <div key={ci} style={{background:'white',borderRadius:16,padding:20,marginBottom:16,boxShadow:'0 2px 8px rgba(0,0,0,0.06)'}}>
             <h3 style={{margin:'0 0 14px',fontSize:16,fontWeight:800,color:'#1f2937'}}>{cat.cat}</h3>
@@ -422,7 +427,6 @@ export default function App() {
             ))}
           </div>
         ))}
-
         {oralTab==='themes' && (
           <div>
             <div style={{background:'#fef3c7',border:'1px solid #f59e0b',borderRadius:12,padding:12,marginBottom:16,fontSize:13,color:'#92400e'}}>
@@ -452,7 +456,10 @@ export default function App() {
     <div style={{minHeight:'100vh',background:'#f8fafc',fontFamily:'system-ui,sans-serif',display:'flex',flexDirection:'column'}}>
       <div style={{background:'linear-gradient(135deg,#6366f1,#4f46e5)',padding:'20px 24px',display:'flex',alignItems:'center',gap:16}}>
         <button onClick={()=>setPage('home')} style={{background:'rgba(255,255,255,0.2)',border:'none',color:'white',width:36,height:36,borderRadius:'50%',cursor:'pointer',fontSize:18}}>←</button>
-        <div><div style={{color:'white',fontWeight:800,fontSize:20}}>💬 Assistant IA DGFiP</div><div style={{color:'rgba(255,255,255,0.8)',fontSize:13}}>Posez vos questions sur la DGFiP</div></div>
+        <div>
+          <div style={{color:'white',fontWeight:800,fontSize:20}}>💬 Assistant IA DGFiP</div>
+          <div style={{color:'rgba(255,255,255,0.8)',fontSize:13}}>Propulsé par Gemini • Posez vos questions</div>
+        </div>
       </div>
       <div style={{flex:1,overflowY:'auto',padding:'16px 24px',maxWidth:700,width:'100%',margin:'0 auto',boxSizing:'border-box'}}>
         {chat.map((m,i)=>(
@@ -476,7 +483,7 @@ export default function App() {
         </div>
         <div style={{maxWidth:700,margin:'8px auto 0',display:'flex',gap:8,flexWrap:'wrap'}}>
           {["Qu'est-ce que la BCR ?","Différence BCR et DNEF ?","Conseils pour l'oral","Missions du SIP","Qu'est-ce que le NRP ?"].map(s=>(
-            <button key={s} onClick={()=>{setChatIn(s);}} style={{background:'#f3f4f6',border:'none',borderRadius:8,padding:'6px 10px',fontSize:12,color:'#374151',cursor:'pointer'}}>{s}</button>
+            <button key={s} onClick={()=>setChatIn(s)} style={{background:'#f3f4f6',border:'none',borderRadius:8,padding:'6px 10px',fontSize:12,color:'#374151',cursor:'pointer'}}>{s}</button>
           ))}
         </div>
       </div>
