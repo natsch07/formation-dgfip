@@ -203,7 +203,7 @@ export default function App() {
       const prompt = `Tu es un assistant expert en préparation aux concours et oraux de la DGFiP (Direction Générale des Finances Publiques). Tu connais parfaitement : les filières fiscale et gestion publique, les services (SIP, SIE, PCE, BCR, BDV, trésoreries), le contrôle fiscal, la sphère foncière, les directions nationales (DNEF, DVNI, DGE, ENFIP), le NRP (Nouveau Réseau de Proximité), et les conseils pour l'oral. Réponds de manière claire, concise et pédagogique en français. Utilise des emojis pour rendre ta réponse plus vivante.\n\nQuestion : ${msg}`;
 
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+  `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

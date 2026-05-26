@@ -1,11 +1,9 @@
 import { useState } from "react";
 
-const GEMINI_KEY = "AIzaSyDmWfB8lmbl86ZPSy-4JK9lkP5r8t8oEfU"; // ← Remplacez ici
-
 const MODULES = [
   {
     id:"filieres", title:"Filières DGFiP", sub:"Fiscale & Gestion Publique", icon:"🏛️",
-    grad:"from-blue-500 to-blue-700", light:"bg-blue-50", border:"border-blue-300", text:"text-blue-700",
+    grad:"from-blue-500 to-blue-700",
     lessons:[
       {t:"Naissance de la DGFiP", c:"La DGFiP existe depuis 2008, née de la fusion de la Direction Générale des Impôts (DGI) et de la Direction Générale de la Comptabilité Publique (DGCP). Cette fusion visait à simplifier l'accès aux services pour le citoyen, notamment en regroupant dans un même service l'assiette et le recouvrement de l'IR. Les SIP sont nés en 2009/2010. Aujourd'hui on parle de Pôle gestion fiscale et Pôle gestion publique."},
       {t:"La filière gestion fiscale", c:"Elle regroupe :\n1. L'assiette des impôts des particuliers (IR, TH, TF, Patrimoine, Publicité foncière) et des professionnels (TVA, IS, CET...).\n2. Le recouvrement des impôts et amendes.\n3. Le contrôle des impôts.\n4. Le contentieux, les rescrits et la sécurité juridique — pour particuliers et professionnels."},
@@ -20,7 +18,7 @@ const MODULES = [
   },
   {
     id:"controle", title:"Contrôle Fiscal", sub:"BCR, PCE, BDV, DIRCOFI...", icon:"🔍",
-    grad:"from-orange-500 to-red-600", light:"bg-orange-50", border:"border-orange-300", text:"text-orange-700",
+    grad:"from-orange-500 to-red-600",
     lessons:[
       {t:"Pourquoi le contrôle fiscal ?", c:"Le système fiscal français est déclaratif. La fraude porte atteinte à la solidarité nationale et à la concurrence loyale. Le contrôle fiscal poursuit 3 buts :\n• Finalité budgétaire : recouvrer l'impôt éludé.\n• Lutte contre la fraude : sanctionner les comportements frauduleux.\n• Garantir le civisme fiscal."},
       {t:"Les types de contrôles", c:"Contrôles du bureau :\n• La Recherche (BCR/DNEF) : 1er maillon de la chaîne.\n• Le CSP (Contrôle Sur Pièces) : depuis le bureau.\n• L'ESFP : examen contradictoire de la situation fiscale personnelle (cohérence revenus/train de vie).\n\nContrôles sur place :\n• CFE (Contrôle Fiscal Externe) : dans les entreprises — BDV (dép.), DIRCOFI (interrégional), DVNI/DNVSF (national)."},
@@ -38,7 +36,7 @@ const MODULES = [
   },
   {
     id:"foncier", title:"Sphère Foncière", sub:"SPF, PTGC, Cadastre...", icon:"🏠",
-    grad:"from-green-500 to-emerald-700", light:"bg-green-50", border:"border-green-300", text:"text-green-700",
+    grad:"from-green-500 to-emerald-700",
     lessons:[
       {t:"Les 4 missions topographiques et cadastrales", c:"1. Mission foncière : identification et description de tous les immeubles et propriétaires.\n2. Mission fiscale : gestion des taxes foncières, évaluation de la valeur locative (VL).\n3. Mission topographique : confection et mise à jour du plan cadastral.\n4. Mission documentaire : délivrance de documents cadastraux (données cartographiques et littérales)."},
       {t:"Services de Publicité Foncière (SPF)", c:"• Mission civile : tenir à jour le fichier immobilier, garantir la sécurité des transactions.\n• Mission fiscale : percevoir les droits lors des mutations de propriété.\n• Applications : Fidji et Télé@ctes (dématérialisation avec les notaires).\n• Fusion en cours depuis 2018 : de 354 SPF à 121 (une par département).\n• Depuis 2020 : SAPF (services d'appui) épaulant les SPF à distance."},
@@ -54,7 +52,7 @@ const MODULES = [
   },
   {
     id:"national", title:"Directions Nationales", sub:"DNEF, DVNI, DGE, ENFIP...", icon:"🌐",
-    grad:"from-purple-500 to-violet-700", light:"bg-purple-50", border:"border-purple-300", text:"text-purple-700",
+    grad:"from-purple-500 to-violet-700",
     lessons:[
       {t:"Direction des Grandes Entreprises (DGE)", c:"Créée en 2002, la DGE gère les dossiers fiscaux des grands groupes (CA ou actif brut > 400 M€) et leurs filiales à plus de 50%. Elle encaisse ~50% du rendement de l'IS et ~40% de la TVA. Les équipes IFU (Inspection Fiscale Unique) gèrent les dossiers, font du contrôle sur pièces et de la programmation à destination exclusive de la DVNI."},
       {t:"DNEF — Direction Nationale des Enquêtes Fiscales", c:"Échelon national de recherche du renseignement. Elle détecte les mécanismes frauduleux, effectue des procédures de visite et de saisie (L.16B LPF) et contrôle notamment les carrousels TVA.\n\nBrigades : BII (intervention inter-régionale), B3I (ingénierie informatique), BIR (intervention rapide), BNI (investigation), BAPF (police fiscale), BNEE (enquêtes économiques)."},
@@ -70,7 +68,7 @@ const MODULES = [
   },
   {
     id:"nrp", title:"NRP & Relocalisation", sub:"Nouveau Réseau de Proximité", icon:"📍",
-    grad:"from-rose-500 to-pink-600", light:"bg-rose-50", border:"border-rose-300", text:"text-rose-700",
+    grad:"from-rose-500 to-pink-600",
     lessons:[
       {t:"Le Nouveau Réseau de Proximité (NRP)", c:"Mis en place de 2020 à 2024/2026. Né du Grand Débat de 2019 face au sentiment d'abandon dans les territoires ruraux.\n\nPrincipe : un usager ne doit pas se trouver à plus de 30 minutes de ses services.\n\nPoints de contact : anciennes trésoreries reconverties, MSAP, France Services, accueil en mairie, bus itinérant. À l'horizon 2022 : 2 000 maisons France Services déployées."},
       {t:"SGC et CDL — Les nouveaux services du NRP", c:"Le NRP consacre la scission des missions des trésoreries en 2 parties :\n\n• SGC (Services de Gestion Comptable) : regroupent les missions de tenue des comptes et budgets locaux de plusieurs trésoreries (professionnalisation, taille critique).\n\n• CDL (Conseillers aux Décideurs Locaux) : regroupent les missions de conseil des élus locaux."},
@@ -85,7 +83,7 @@ const MODULES = [
   },
   {
     id:"ddfip", title:"Services DDFiP/DRFiP", sub:"SIP, SIE, Trésoreries...", icon:"🗂️",
-    grad:"from-teal-500 to-cyan-600", light:"bg-teal-50", border:"border-teal-300", text:"text-teal-700",
+    grad:"from-teal-500 to-cyan-600",
     lessons:[
       {t:"Les 3 grandes missions des DDFiP", c:"1. Missions fiscales : assiette, contrôle, contentieux et recouvrement des impôts, tenue du cadastre et de la publicité foncière.\n\n2. Missions de gestion publique : contrôle et paiement des dépenses publiques, comptes de l'État et des collectivités, gestion domaniale, action économique et financière.\n\n3. Missions transverses : RH, formation, budget, immobilier, logistique, communication, contrôle de gestion, audit."},
       {t:"SIP et SIE", c:"SIP (Service des Impôts des Particuliers) : guichet fiscal unique (IR, taxe foncière). 3 missions : accueil, assiette, recouvrement. 2 pics d'activité : printemps (déclarations) et automne (rôles). Logiciels : Iliad, Rec, Rar, ADONIS, GesPart, Lascot, Majic.\n\nSIE (Service des Impôts des Entreprises) : gère les impôts professionnels des PME/TPE. Logiciels : Medoc, BDRP, GesPro, ADELIE."},
@@ -154,6 +152,8 @@ const JURY = [
   {n:21, t:"Externalisation des missions", q:["Somme maximale payable en numéraire dans un SIP ?","Le zéro cash — paiement des impôts chez les buralistes ?"]}
 ];
 
+const GR = m => m.grad.includes('blue')?'#3b82f6,#1d4ed8':m.grad.includes('orange')?'#f97316,#dc2626':m.grad.includes('green')?'#10b981,#065f46':m.grad.includes('purple')?'#8b5cf6,#6d28d9':m.grad.includes('rose')?'#f43f5e,#db2777':'#14b8a6,#0e7490';
+
 export default function App() {
   const [page, setPage] = useState('home');
   const [mod, setMod] = useState(null);
@@ -162,63 +162,27 @@ export default function App() {
   const [doneQ, setDoneQ] = useState({});
   const [qz, setQz] = useState({ cur:0, sel:null, score:0, done:false, results:[] });
   const [oralTab, setOralTab] = useState('tips');
-  const [chat, setChat] = useState([{role:'ai', txt:'Bonjour ! 👋 Je suis votre assistant DGFiP. Posez-moi vos questions sur les missions, les services ou la préparation à l\'oral !'}]);
-  const [chatIn, setChatIn] = useState('');
-  const [chatLoad, setChatLoad] = useState(false);
 
   const totalLessons = MODULES.reduce((s,m)=>s+m.lessons.length,0);
   const doneCount = Object.values(doneL).filter(Boolean).length;
 
-  const startQuiz = (m) => {
-    setMod(m);
-    setQz({ cur:0, sel:null, score:0, done:false, results:[] });
-    setPage('quiz');
-  };
+  const startQuiz = (m) => { setMod(m); setQz({cur:0,sel:null,score:0,done:false,results:[]}); setPage('quiz'); };
 
   const answerQ = (i) => {
-    if(qz.sel !== null) return;
+    if(qz.sel!==null) return;
     const q = mod.quiz[qz.cur];
-    const ok = i === q.a;
-    setQz(prev => ({...prev, sel:i, score: ok ? prev.score+1 : prev.score, results:[...prev.results, {ok, chosen:i, correct:q.a}]}));
+    const ok = i===q.a;
+    setQz(prev=>({...prev,sel:i,score:ok?prev.score+1:prev.score,results:[...prev.results,{ok}]}));
   };
 
   const nextQ = () => {
     const next = qz.cur+1;
-    if(next >= mod.quiz.length) {
-      setQz(prev=>({...prev, done:true}));
-      setDoneQ(prev=>({...prev, [mod.id]:Math.max(prev[mod.id]||0, Math.round((qz.score+(qz.sel===mod.quiz[qz.cur].a?1:0))/mod.quiz.length*100))}));
+    if(next>=mod.quiz.length) {
+      setQz(prev=>({...prev,done:true}));
+      setDoneQ(prev=>({...prev,[mod.id]:Math.max(prev[mod.id]||0,Math.round((qz.score+(qz.sel===mod.quiz[qz.cur].a?1:0))/mod.quiz.length*100))}));
     } else {
-      setQz(prev=>({...prev, cur:next, sel:null}));
+      setQz(prev=>({...prev,cur:next,sel:null}));
     }
-  };
-
-  // ── GEMINI API ──
-  const sendChat = async () => {
-    if(!chatIn.trim() || chatLoad) return;
-    const msg = chatIn.trim();
-    setChatIn('');
-    setChat(prev=>[...prev, {role:'user', txt:msg}]);
-    setChatLoad(true);
-    try {
-      const prompt = `Tu es un assistant expert en préparation aux concours et oraux de la DGFiP (Direction Générale des Finances Publiques). Tu connais parfaitement : les filières fiscale et gestion publique, les services (SIP, SIE, PCE, BCR, BDV, trésoreries), le contrôle fiscal, la sphère foncière, les directions nationales (DNEF, DVNI, DGE, ENFIP), le NRP (Nouveau Réseau de Proximité), et les conseils pour l'oral. Réponds de manière claire, concise et pédagogique en français. Utilise des emojis pour rendre ta réponse plus vivante.\n\nQuestion : ${msg}`;
-
-      const res = await fetch(
-  `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }]
-          })
-        }
-      );
-      const data = await res.json();
-      const txt = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu répondre.";
-      setChat(prev=>[...prev, {role:'ai', txt}]);
-    } catch(e) {
-      setChat(prev=>[...prev, {role:'ai', txt:"⚠️ Erreur de connexion. Vérifiez votre clé API Gemini."}]);
-    }
-    setChatLoad(false);
   };
 
   // ── HOME ──
@@ -230,8 +194,8 @@ export default function App() {
           <div style={{color:'rgba(255,255,255,0.8)',fontSize:13}}>CFTC Finances Publiques</div>
         </div>
         <div style={{display:'flex',gap:8}}>
-          {[['📚','Modules'],['🎤','Oral'],['💬','Assistant']].map(([ic,lb])=>(
-            <button key={lb} onClick={()=>setPage(lb==='Modules'?'home':lb==='Oral'?'oral':'chat')}
+          {[['📚','Modules'],['🎤','Oral']].map(([ic,lb])=>(
+            <button key={lb} onClick={()=>setPage(lb==='Modules'?'home':'oral')}
               style={{background:'rgba(255,255,255,0.2)',border:'1px solid rgba(255,255,255,0.3)',color:'white',padding:'6px 14px',borderRadius:20,cursor:'pointer',fontSize:13,fontWeight:600}}>
               {ic} {lb}
             </button>
@@ -241,7 +205,7 @@ export default function App() {
       <div style={{padding:'32px 24px',maxWidth:960,margin:'0 auto'}}>
         <div style={{textAlign:'center',marginBottom:32}}>
           <h1 style={{color:'white',fontSize:28,fontWeight:800,margin:'0 0 8px'}}>Préparez votre concours DGFiP 🚀</h1>
-          <p style={{color:'rgba(255,255,255,0.85)',fontSize:15,margin:0}}>6 modules de formation · Quizzes interactifs · Préparation à l'oral · Assistant IA</p>
+          <p style={{color:'rgba(255,255,255,0.85)',fontSize:15,margin:0}}>6 modules de formation · Quizzes interactifs · Préparation à l'oral</p>
           <div style={{background:'rgba(255,255,255,0.15)',borderRadius:12,padding:'12px 20px',display:'inline-block',marginTop:16}}>
             <span style={{color:'white',fontWeight:700,fontSize:15}}>📊 Progression : {doneCount}/{totalLessons} leçons lues · {Object.keys(doneQ).length}/{MODULES.length} modules complétés</span>
           </div>
@@ -251,7 +215,7 @@ export default function App() {
             <div key={m.id} style={{background:'white',borderRadius:16,overflow:'hidden',boxShadow:'0 4px 20px rgba(0,0,0,0.15)',cursor:'pointer',transition:'transform 0.2s'}}
               onMouseEnter={e=>e.currentTarget.style.transform='translateY(-4px)'}
               onMouseLeave={e=>e.currentTarget.style.transform='translateY(0)'}>
-              <div style={{backgroundImage:`linear-gradient(135deg,${m.grad.includes('blue')?'#3b82f6,#1d4ed8':m.grad.includes('orange')?'#f97316,#dc2626':m.grad.includes('green')?'#10b981,#065f46':m.grad.includes('purple')?'#8b5cf6,#6d28d9':m.grad.includes('rose')?'#f43f5e,#db2777':'#14b8a6,#0e7490'})`,padding:'20px 20px 16px'}}>
+              <div style={{backgroundImage:`linear-gradient(135deg,${GR(m)})`,padding:'20px 20px 16px'}}>
                 <div style={{fontSize:32,marginBottom:8}}>{m.icon}</div>
                 <div style={{color:'white',fontWeight:800,fontSize:17}}>{m.title}</div>
                 <div style={{color:'rgba(255,255,255,0.85)',fontSize:13,marginTop:2}}>{m.sub}</div>
@@ -263,7 +227,7 @@ export default function App() {
                 </div>
                 <div style={{display:'flex',gap:8}}>
                   <button onClick={()=>{setMod(m);setPage('module');setLessonOpen(null)}}
-                    style={{flex:1,backgroundImage:`linear-gradient(135deg,${m.grad.includes('blue')?'#3b82f6,#1d4ed8':m.grad.includes('orange')?'#f97316,#dc2626':m.grad.includes('green')?'#10b981,#065f46':m.grad.includes('purple')?'#8b5cf6,#6d28d9':m.grad.includes('rose')?'#f43f5e,#db2777':'#14b8a6,#0e7490'})`,color:'white',border:'none',padding:'8px 0',borderRadius:8,cursor:'pointer',fontWeight:700,fontSize:13}}>
+                    style={{flex:1,backgroundImage:`linear-gradient(135deg,${GR(m)})`,color:'white',border:'none',padding:'8px 0',borderRadius:8,cursor:'pointer',fontWeight:700,fontSize:13}}>
                     📖 Cours
                   </button>
                   <button onClick={()=>startQuiz(m)}
@@ -282,7 +246,7 @@ export default function App() {
   // ── MODULE ──
   if(page==='module' && mod) return (
     <div style={{minHeight:'100vh',background:'#f8fafc',fontFamily:'system-ui,sans-serif'}}>
-      <div style={{backgroundImage:`linear-gradient(135deg,${mod.grad.includes('blue')?'#3b82f6,#1d4ed8':mod.grad.includes('orange')?'#f97316,#dc2626':mod.grad.includes('green')?'#10b981,#065f46':mod.grad.includes('purple')?'#8b5cf6,#6d28d9':mod.grad.includes('rose')?'#f43f5e,#db2777':'#14b8a6,#0e7490'})`,padding:'24px',display:'flex',alignItems:'center',gap:16}}>
+      <div style={{backgroundImage:`linear-gradient(135deg,${GR(mod)})`,padding:'24px',display:'flex',alignItems:'center',gap:16}}>
         <button onClick={()=>setPage('home')} style={{background:'rgba(255,255,255,0.2)',border:'none',color:'white',width:36,height:36,borderRadius:'50%',cursor:'pointer',fontSize:18}}>←</button>
         <div>
           <div style={{color:'white',fontWeight:800,fontSize:22}}>{mod.icon} {mod.title}</div>
@@ -299,7 +263,7 @@ export default function App() {
         </div>
         {mod.lessons.map((l,i)=>(
           <div key={i} style={{background:'white',borderRadius:12,marginBottom:12,boxShadow:'0 2px 8px rgba(0,0,0,0.06)',overflow:'hidden'}}>
-            <div onClick={()=>{setLessonOpen(lessonOpen===i?null:i); setDoneL(prev=>({...prev,[`${mod.id}-${i}`]:true}));}}
+            <div onClick={()=>{setLessonOpen(lessonOpen===i?null:i);setDoneL(prev=>({...prev,[`${mod.id}-${i}`]:true}));}}
               style={{padding:'16px 20px',display:'flex',alignItems:'center',cursor:'pointer',gap:12}}>
               <div style={{width:32,height:32,borderRadius:'50%',background:doneL[`${mod.id}-${i}`]?'#d1fae5':'#f3f4f6',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,color:doneL[`${mod.id}-${i}`]?'#065f46':'#6b7280',fontSize:14,flexShrink:0}}>
                 {doneL[`${mod.id}-${i}`]?'✓':i+1}
@@ -323,16 +287,14 @@ export default function App() {
   // ── QUIZ ──
   if(page==='quiz' && mod) {
     if(qz.done) {
-      const final = qz.score;
-      const total = mod.quiz.length;
-      const pct = Math.round(final/total*100);
+      const pct = Math.round(qz.score/mod.quiz.length*100);
       return (
         <div style={{minHeight:'100vh',background:'#f8fafc',fontFamily:'system-ui,sans-serif',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:24}}>
           <div style={{background:'white',borderRadius:20,padding:32,maxWidth:500,width:'100%',textAlign:'center',boxShadow:'0 8px 32px rgba(0,0,0,0.1)'}}>
             <div style={{fontSize:56,marginBottom:12}}>{pct>=80?'🏆':pct>=60?'👍':'💪'}</div>
             <h2 style={{margin:'0 0 8px',color:'#1f2937',fontSize:24}}>Quiz terminé !</h2>
             <div style={{fontSize:48,fontWeight:900,color:pct>=80?'#10b981':pct>=60?'#f97316':'#ef4444',margin:'16px 0'}}>{pct}%</div>
-            <p style={{color:'#6b7280',margin:'0 0 24px'}}>{final}/{total} bonnes réponses</p>
+            <p style={{color:'#6b7280',margin:'0 0 24px'}}>{qz.score}/{mod.quiz.length} bonnes réponses</p>
             <div style={{background:'#f3f4f6',borderRadius:12,padding:16,marginBottom:24,textAlign:'left'}}>
               {mod.quiz.map((q,i)=>(
                 <div key={i} style={{display:'flex',gap:8,marginBottom:8,fontSize:13}}>
@@ -367,10 +329,10 @@ export default function App() {
             <h3 style={{margin:'0 0 24px',color:'#1f2937',fontSize:18,lineHeight:1.5}}>{q.q}</h3>
             <div style={{display:'flex',flexDirection:'column',gap:10}}>
               {q.c.map((ch,i)=>{
-                let bg='#f8fafc', border='#e5e7eb', tc='#374151';
+                let bg='#f8fafc',border='#e5e7eb',tc='#374151';
                 if(qz.sel!==null){
                   if(i===q.a){bg='#d1fae5';border='#10b981';tc='#065f46';}
-                  else if(i===qz.sel && i!==q.a){bg='#fee2e2';border='#ef4444';tc='#991b1b';}
+                  else if(i===qz.sel&&i!==q.a){bg='#fee2e2';border='#ef4444';tc='#991b1b';}
                 }
                 return (
                   <button key={i} onClick={()=>answerQ(i)}
@@ -430,7 +392,7 @@ export default function App() {
         {oralTab==='themes' && (
           <div>
             <div style={{background:'#fef3c7',border:'1px solid #f59e0b',borderRadius:12,padding:12,marginBottom:16,fontSize:13,color:'#92400e'}}>
-              📊 Ces 21 thèmes ont été abordés dans au moins 1/3 des oraux officiels 2020-2021 (contrôleurs & IFIP).
+              📊 Ces 21 thèmes ont été abordés dans au moins 1/3 des oraux officiels 2020-2021.
             </div>
             {JURY.map(j=>(
               <div key={j.n} style={{background:'white',borderRadius:12,padding:16,marginBottom:10,boxShadow:'0 2px 8px rgba(0,0,0,0.06)',display:'flex',gap:14,alignItems:'flex-start'}}>
@@ -447,45 +409,6 @@ export default function App() {
             ))}
           </div>
         )}
-      </div>
-    </div>
-  );
-
-  // ── CHAT ──
-  if(page==='chat') return (
-    <div style={{minHeight:'100vh',background:'#f8fafc',fontFamily:'system-ui,sans-serif',display:'flex',flexDirection:'column'}}>
-      <div style={{background:'linear-gradient(135deg,#6366f1,#4f46e5)',padding:'20px 24px',display:'flex',alignItems:'center',gap:16}}>
-        <button onClick={()=>setPage('home')} style={{background:'rgba(255,255,255,0.2)',border:'none',color:'white',width:36,height:36,borderRadius:'50%',cursor:'pointer',fontSize:18}}>←</button>
-        <div>
-          <div style={{color:'white',fontWeight:800,fontSize:20}}>💬 Assistant IA DGFiP</div>
-          <div style={{color:'rgba(255,255,255,0.8)',fontSize:13}}>Propulsé par Gemini • Posez vos questions</div>
-        </div>
-      </div>
-      <div style={{flex:1,overflowY:'auto',padding:'16px 24px',maxWidth:700,width:'100%',margin:'0 auto',boxSizing:'border-box'}}>
-        {chat.map((m,i)=>(
-          <div key={i} style={{display:'flex',justifyContent:m.role==='user'?'flex-end':'flex-start',marginBottom:12}}>
-            <div style={{maxWidth:'80%',background:m.role==='user'?'linear-gradient(135deg,#6366f1,#4f46e5)':'white',color:m.role==='user'?'white':'#374151',borderRadius:m.role==='user'?'16px 16px 4px 16px':'16px 16px 16px 4px',padding:'12px 16px',fontSize:14,lineHeight:1.6,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',whiteSpace:'pre-wrap'}}>
-              {m.role==='ai' && <span style={{fontWeight:700,display:'block',marginBottom:4,color:'#6366f1',fontSize:13}}>🤖 Assistant DGFiP</span>}
-              {m.txt}
-            </div>
-          </div>
-        ))}
-        {chatLoad && <div style={{display:'flex',justifyContent:'flex-start',marginBottom:12}}><div style={{background:'white',borderRadius:'16px 16px 16px 4px',padding:'12px 16px',boxShadow:'0 2px 8px rgba(0,0,0,0.08)',color:'#6b7280',fontSize:14}}>⏳ En train de répondre...</div></div>}
-      </div>
-      <div style={{background:'white',borderTop:'1px solid #e5e7eb',padding:'16px 24px'}}>
-        <div style={{maxWidth:700,margin:'0 auto',display:'flex',gap:10}}>
-          <input value={chatIn} onChange={e=>setChatIn(e.target.value)} onKeyDown={e=>e.key==='Enter'&&sendChat()}
-            placeholder="Posez votre question sur la DGFiP..." style={{flex:1,border:'2px solid #e5e7eb',borderRadius:12,padding:'12px 16px',fontSize:14,outline:'none',fontFamily:'system-ui'}}/>
-          <button onClick={sendChat} disabled={chatLoad}
-            style={{background:'linear-gradient(135deg,#6366f1,#4f46e5)',color:'white',border:'none',borderRadius:12,padding:'12px 20px',cursor:'pointer',fontWeight:700,fontSize:15,opacity:chatLoad?0.7:1}}>
-            ➤
-          </button>
-        </div>
-        <div style={{maxWidth:700,margin:'8px auto 0',display:'flex',gap:8,flexWrap:'wrap'}}>
-          {["Qu'est-ce que la BCR ?","Différence BCR et DNEF ?","Conseils pour l'oral","Missions du SIP","Qu'est-ce que le NRP ?"].map(s=>(
-            <button key={s} onClick={()=>setChatIn(s)} style={{background:'#f3f4f6',border:'none',borderRadius:8,padding:'6px 10px',fontSize:12,color:'#374151',cursor:'pointer'}}>{s}</button>
-          ))}
-        </div>
       </div>
     </div>
   );
